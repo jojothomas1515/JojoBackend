@@ -7,7 +7,7 @@ from .managers import CustomUserManager
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    profile_image = models.ImageField(_('Profile Image'), null='True', blank=True)
+    profile_image = models.ImageField(_('Profile Image'), null='True', blank=True, default='jojo.com')
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(_('username'), unique=True, max_length=100, null=True, blank=True)
     firstname = models.CharField(_('First Name'), max_length=100, null=True, blank=True)
@@ -23,3 +23,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
