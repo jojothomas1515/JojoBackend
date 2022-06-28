@@ -9,7 +9,8 @@ from .managers import CustomUserManager
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(_('username'), unique=True, max_length=100, null=True, blank=True)
 
-    profile_image = models.ImageField(_('Profile Image'), null='True', blank=True, default='jojo.com',
+    profile_image = models.ImageField(_('Profile Image'), null='True', blank=True,
+                                      default='https://firebasestorage.googleapis.com/v0/b/jojopage-001.appspot.com/o/default%2Fno-profile-picture-icon-11.jpg?alt=media&token=7f8f1d08-6ce9-4ef5-b00e-0939e70895ed',
                                       upload_to=f'images/profile')
     email = models.EmailField(_('email address'), unique=True)
     firstname = models.CharField(_('First Name'), max_length=100, null=True, blank=True)
