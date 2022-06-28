@@ -12,3 +12,9 @@ class UserSerializers(serializers.ModelSerializer):
             "username",
             "firstname",
             "lastname", ]
+
+
+class ProfileImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['profile_image']

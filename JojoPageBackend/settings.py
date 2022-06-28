@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
+from google.oauth2 import service_account
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -24,9 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q*69xww$)%i2q205y^c(*@n^!(8v#*vcvbf_frf&i^bny+v70g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -129,7 +128,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = "media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -171,3 +169,26 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+if not DEBUG:
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+        os.path.join(BASE_DIR, 'jojopage-001-firebase-adminsdk-14m5b-a8e5276ebf.json')
+    )
+
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    GS_BUCKET_NAME = 'jojopage-123.appspot.com'
+    STATIC_URL = 'static/'
+    MEDIA_URL = "media/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+
+
+elif DEBUG:
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+        os.path.join(BASE_DIR, 'jojopage-001-firebase-adminsdk-14m5b-a8e5276ebf.json')
+    )
+
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    GS_BUCKET_NAME = 'jojopage-001.appspot.com'
+    STATIC_URL = 'static/'
+    MEDIA_URL = "media/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
