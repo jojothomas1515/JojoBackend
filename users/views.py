@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from users.models import CustomUser
-from users.serializer import ProfileImageSerializer, UserSerializers
+from users.serializer import ProfileImageSerializer, ProfileInfoSerializer, UserSerializers
 
 
 @api_view(['GET'])
@@ -25,7 +25,8 @@ def changeProfileImage(request):
 
 @api_view(['POST'])
 def changeName(request):
-    form = UserSerializers(data=request.data, instance=request.user)
+    form = ProfileInfoSerializer(data=request.data, instance=request.user)
     if form.is_valid():
         form.save()
         return Response(form.data)
+    return Response(form.data)

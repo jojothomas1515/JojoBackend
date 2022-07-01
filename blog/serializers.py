@@ -10,3 +10,13 @@ class BlogPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
         fields = '__all__'
+
+class NewPostSerializer(serializers.ModelSerializer):
+    #experimental
+    # def __int__(self, *args, **kwargs):
+    #     author = args['author']
+    #     super().__init__(*args, **kwargs)
+
+    class Meta:
+        model= BlogPost
+        fields = ['heading', 'cover_image', 'summary']
