@@ -1,1 +1,1 @@
-web: gunicorn JojoProject.wsgi
+web: gunicorn JojoPageBackend.wsgi
