@@ -41,3 +41,9 @@ def removePost(request, pk):
     post = BlogPost.objects.get(pk=pk)
     post.delete()
     return Response(status=200)
+
+@api_view(['GET'])
+def viewPost(request, pk):
+    post = BlogPost.objects.get(pk=pk)
+    post = BlogPostSerializer(post)
+    return Response(post.data)

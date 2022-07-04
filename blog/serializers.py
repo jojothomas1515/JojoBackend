@@ -19,4 +19,4 @@ class NewPostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model= BlogPost
-        fields = ['heading', 'cover_image', 'summary']
+        fields = ['heading', 'cover_image', 'post_field']
