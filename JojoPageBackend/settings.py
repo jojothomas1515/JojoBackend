@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q*69xww$)%i2q205y^c(*@n^!(8v#*vcvbf_frf&i^bny+v70g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['https://jojobackend.herokuapp.com/','jojobackend.herokuapp.com','https://jojobackend.herokuapp.com']
 CORS_ALLOWED_ORIGINS = [
@@ -200,3 +200,7 @@ elif DEBUG:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
     STATICFILES_DIRS= [os.path.join(BASE_DIR, 'static')]
     STATIC_ROOT= os.path.join(BASE_DIR, 'staticfiles')
+
+
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
