@@ -27,7 +27,10 @@ SECRET_KEY = 'django-insecure-q*69xww$)%i2q205y^c(*@n^!(8v#*vcvbf_frf&i^bny+v70g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://jojopage.herokuapp.com']
+CORS_ALLOWED_ORIGINS = [
+    "https://jojoreact.herokuapp.com"
+]
 
 # Application definition
 
@@ -133,7 +136,6 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
