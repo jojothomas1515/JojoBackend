@@ -27,9 +27,10 @@ SECRET_KEY = 'django-insecure-q*69xww$)%i2q205y^c(*@n^!(8v#*vcvbf_frf&i^bny+v70g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://jojopage.herokuapp.com']
+ALLOWED_HOSTS = ['https://jojopage.herokuapp.com/','https://jojopage.herokuapp.com']
 CORS_ALLOWED_ORIGINS = [
-    "https://jojoreact.herokuapp.com"
+    "https://jojoreact.herokuapp.com/",
+    "https://jojoreact.herokuapp.com",
 ]
 
 # Application definition
