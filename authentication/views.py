@@ -19,3 +19,6 @@ def signup_view(request):
         return Response({'success': f'{user.username} account created successfully'})
     else:
         return Response(user.errors, status=400)
+
+
+

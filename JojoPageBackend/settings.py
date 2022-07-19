@@ -27,14 +27,7 @@ SECRET_KEY = 'django-insecure-q*69xww$)%i2q205y^c(*@n^!(8v#*vcvbf_frf&i^bny+v70g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://jojobackend.herokuapp.com/','jojobackend.herokuapp.com','https://jojobackend.herokuapp.com']
-CORS_ALLOWED_ORIGINS = [
-    "https://jojoreact.herokuapp.com/",
-    "https://jojoreact.herokuapp.com",
-    "jojoreact.herokuapp.com",
-]
-
-# Application definition
+ALLOWED_HOSTS = ['jojobackend.herokuapp.com', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -64,6 +57,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'JojoPageBackend.urls'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://192.168.9.100',
+    "https://jojoreact.herokuapp.com",
+]
+# CORS_ALLOW_ALL_ORIGINS = True# Application definition
 
 TEMPLATES = [
     {

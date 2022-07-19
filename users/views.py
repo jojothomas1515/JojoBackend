@@ -30,3 +30,15 @@ def changeName(request):
         form.save()
         return Response(form.data)
     return Response(form.data)
+
+
+@api_view(['GET'])
+def users_profile_view(request, username):
+    print(username)
+    try:
+        user = CustomUser.objects.get(username__iexact=username)
+        serializedData = UserSerializers(user)
+        return Response(serializedData.data)
+    except Exception as e:
+        return Response(status=404)
+

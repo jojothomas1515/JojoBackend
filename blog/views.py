@@ -23,7 +23,13 @@ def index(request):
 def userPosts(request):
     post = get_list_or_404(BlogPost, author=request.user)
     serialPost = BlogPostSerializer(post, many=True)
-    print(serialPost.data)
+    return Response(serialPost.data)\
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def userProfilePosts(request, username):
+    post = BlogPost.objects.filter(author__username=username)
+    serialPost = BlogPostSerializer(post, many=True)
     return Response(serialPost.data)
 
 @api_view(["POST"])
