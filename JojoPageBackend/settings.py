@@ -62,7 +62,6 @@ CORS_ALLOWED_ORIGINS = [
     'http://192.168.9.100',
     "https://jojoreact.herokuapp.com",
     "http://jojoreact.herokuapp.com",
-    "https://jojoreact.herokuapp.com/*",
 
 ]
 # CORS_ALLOW_ALL_ORIGINS = True# Application definition
