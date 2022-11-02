@@ -89,9 +89,12 @@ WSGI_APPLICATION = 'JojoPageBackend.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlitej'
     }
+
 }
 
 # Password validation
@@ -202,5 +205,5 @@ elif DEBUG:
     STATIC_ROOT= os.path.join(BASE_DIR, 'staticfiles')
 
 
-import dj_database_url
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+#import dj_database_url
+#DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
