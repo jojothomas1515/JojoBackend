@@ -1,5 +1,7 @@
+from typing import Dict, Any
+
 from django.contrib.auth.password_validation import validate_password
-from rest_framework import serializers
+from rest_framework import serializers, exceptions
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -14,6 +16,24 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token['username'] = user.username
         return token
+
+    def validate(self, attrs: Dict[str, Any]) -> Dict[str, Any]:
+        from users.models import CustomUser
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        user = CustomUser.objects.get(email=email)
+        if not user:
+            raise exceptions.NotFound(
+                {'message': 'No user associated with this email', 'status': 'Unauthorized',
+                 'code': 'no_user'}, code='no_user')
+
+        if not user.check_password(password):
+            raise exceptions.AuthenticationFailed({'message': 'Incorrect password',
+                                                   'status': 'Unauthorized',
+                                                   'code': 'incorrect_password'}, 'incorrect_password')
+
+        super().validate(attrs)
 
 
 class SignupSerializer(serializers.ModelSerializer):
@@ -34,8 +54,15 @@ class SignupSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError({"password": "Password fields didn't match."})
+        email = attrs.get('email')
+        password = attrs.get('password')
+        password2 = attrs.get('password2')
+        if CustomUser.objects.get(email=email):
+            raise exceptions.AuthenticationFailed({'message': 'email already exists', 'code': 'email_exists',
+                                                   'status': 'Unauthorized'}, 'email_exists')
+
+        if password != password2:
+            raise serializers.ValidationError({"message": "Password fields does match."})
         return attrs
 
     def create(self, validated_data):
@@ -49,3 +76,15 @@ class SignupSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+
+class SuccessfulSignUpMessageSerializer(serializers.Serializer):
+    message = serializers.CharField(max_length=200, default='<username> account created successfully')
+    status = serializers.CharField(max_length=30, default='Success')
+    code = serializers.CharField(max_length=30, default='registration_success')
+
+
+class UserAlreadyExistsMessageSerializer(serializers.Serializer):
+    message = serializers.CharField(max_length=200, default='user already exist')
+    status = serializers.CharField(max_length=30, default='email or username already exists')
+    code = serializers.CharField(max_length=30, default='user_already_exists')

@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-q*69xww$)%i2q205y^c(*@n^!(8v#*vcvbf_frf&i^bny+v70g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['jojobackend.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['jojobackend.herokuapp.com', '127.0.0.1', '*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -36,11 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
 
     'rest_framework',
     'corsheaders',
     'blog',
     'users',
+
 ]
 
 MIDDLEWARE = [
@@ -83,6 +85,17 @@ TEMPLATES = [
     },
 ]
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    'LOGIN_URL': '/admin',
+}
+
 WSGI_APPLICATION = 'JojoPageBackend.wsgi.application'
 
 # Database
@@ -103,6 +116,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -135,12 +149,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -201,9 +213,8 @@ elif DEBUG:
     STATIC_URL = 'static/'
     MEDIA_URL = "media/"
     MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
-    STATICFILES_DIRS= [os.path.join(BASE_DIR, 'static')]
-    STATIC_ROOT= os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
-#import dj_database_url
-#DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)

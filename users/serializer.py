@@ -22,5 +22,5 @@ class ProfileImageSerializer(serializers.ModelSerializer):
 
 class ProfileInfoSerializer(serializers.ModelSerializer):
     class Meta:
-        model =CustomUser
+        model = CustomUser
         fields = ['firstname', 'lastname']
