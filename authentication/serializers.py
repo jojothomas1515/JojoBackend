@@ -22,7 +22,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         email = attrs.get('email')
         password = attrs.get('password')
 
-        user = CustomUser.objects.get(email=email)
+        user = CustomUser.objects.filter(email=email).first()
         if not user:
             raise exceptions.NotFound(
                 {'message': 'No user associated with this email', 'status': 'Unauthorized',
@@ -33,7 +33,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
                                                    'status': 'Unauthorized',
                                                    'code': 'incorrect_password'}, 'incorrect_password')
 
-        super().validate(attrs)
+        return super().validate(attrs)
 
 
 class SignupSerializer(serializers.ModelSerializer):
@@ -57,7 +57,7 @@ class SignupSerializer(serializers.ModelSerializer):
         email = attrs.get('email')
         password = attrs.get('password')
         password2 = attrs.get('password2')
-        if CustomUser.objects.get(email=email):
+        if CustomUser.objects.filter(email=email).first():
             raise exceptions.AuthenticationFailed({'message': 'email already exists', 'code': 'email_exists',
                                                    'status': 'Unauthorized'}, 'email_exists')
 

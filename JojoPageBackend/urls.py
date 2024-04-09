@@ -30,7 +30,7 @@ urlpatterns = [
          name='schema-redoc'),
     path('admin/', admin.site.urls),
     path('api/blog/', include('blog.urls')),
-    path('api/users/', include('users.urls')),
+    path('api/user/', include('users.urls')),
     path('api/auth/', include('authentication.urls'))
 ]
 # for debug mode

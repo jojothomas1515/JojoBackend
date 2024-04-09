@@ -4,9 +4,9 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('myposts', views.user_post, name='myposts'),
-    path('<str:username>/profile/posts', views.user_profile_post, name='myposts'),
-    path('addpost', views.add_post, name='addpost'),
-    path('removepost/<int:pk>', views.remove_post, name='removepost'),
-    path('viewpost/<int:pk>', views.view_post, name='viewpost'),
+    path('my_posts/', views.user_post, name='myposts'),
+    path('<str:username>/posts/', views.user_profile_post, name='myposts'),
+    path('add_post/', views.add_post, name='addpost'),
+    path('remove_post/<int:pk>/', views.remove_post, name='removepost'),
+    path('view_post/<int:pk>/', views.view_post, name='viewpost'),
 ]
